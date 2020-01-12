@@ -57,3 +57,4 @@ E:\VS2017 Demo\Core Demo\EmployeeManagement\EmployeeManagement\obj\Debug\netcore
 E:\VS2017 Demo\Core Demo\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp2.1\EmployeeManagement.dll
 E:\VS2017 Demo\Core Demo\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp2.1\EmployeeManagement.pdb
 E:\VS2017 Demo\Core Demo\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp2.1\EmployeeManagement.csproj.CopyComplete
+E:\VS2017 Demo\Core Demo\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp2.1\EmployeeManagement.csprojAssemblyReference.cache
