@@ -7,6 +7,7 @@ using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +29,14 @@ namespace CoreDemo1
             #region adding dbcontext service
             services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(_config.GetConnectionString("EmployeeDBConnection")));
             #endregion
+
+            #region adding identity service
+
+            services.AddIdentity<IdentityUser,IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
+            #endregion
+
             #region AddMvc() Method
             //AddMvc method internally calls AddMvcCore services so no need to call AddMvcCore explicitly
             // to get json data in xml format we add 'AddXmlSerializerFormatters' method
@@ -49,6 +58,9 @@ namespace CoreDemo1
             #region use the 404 error middleware apart from development environment
             else
             {
+                //below line is for global exception start
+                app.UseExceptionHandler("/Error");
+                //end
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
             }
             #endregion
@@ -92,6 +104,9 @@ namespace CoreDemo1
             //app.UseMvcWithDefaultRoute();
             //commenting UseMvcWithDefaultRoute use UseMvc method for conventional routing
             //? mark to make id optional
+            #region using authentication middleware for identity
+            app.UseAuthentication();
+            #endregion
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");

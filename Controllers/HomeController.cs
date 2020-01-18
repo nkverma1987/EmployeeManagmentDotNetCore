@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using CoreDemo1.Models;
+﻿using CoreDemo1.Models;
 using CoreDemo1.ViewModel;
 using EmployeeManagement.ViewModel;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.IO;
 
 namespace CoreDemo1.Controllers
 {
@@ -19,13 +16,17 @@ namespace CoreDemo1.Controllers
     //[Route("[controller]/[action]")]
     public class HomeController : Controller
     {
-        private IEmployeeRpository _employeeRpository;
+        private readonly IEmployeeRpository _employeeRpository;
         // IHostingEnvironment is being used to get the wwwroot folder path in the solution
-        private IHostingEnvironment hostingEnvironment;
-        public HomeController(IEmployeeRpository employeeRepository, IHostingEnvironment hostingEnvironment)
+        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly ILogger logger;
+        public HomeController(IEmployeeRpository employeeRepository, 
+                              IHostingEnvironment hostingEnvironment,
+                              ILogger<HomeController> logger)
         {
             this._employeeRpository = employeeRepository;
             this.hostingEnvironment = hostingEnvironment;
+            this.logger = logger;
         }
         //[Route("")]
         //[Route("Index")]
@@ -35,6 +36,8 @@ namespace CoreDemo1.Controllers
         // [Route("~/")] // for http://localhost:49827/
         public ViewResult Index()
         {
+            logger.LogTrace("Trace Log");
+            logger.LogDebug("Debug Log");
             var model = _employeeRpository.GetEmployees();
             return View(model);
         }
@@ -45,6 +48,7 @@ namespace CoreDemo1.Controllers
         //[Route("{id?}")]
         public ViewResult Details(int? id)
         {
+            
             Employee employee = _employeeRpository.GetEmployee(id.Value);
             if(employee==null)
             {
