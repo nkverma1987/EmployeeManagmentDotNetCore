@@ -1,6 +1,7 @@
 ﻿using CoreDemo1.Models;
 using CoreDemo1.ViewModel;
 using EmployeeManagement.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,6 +15,7 @@ namespace CoreDemo1.Controllers
     //[Route("[controller]")]
     //we can also write like below for attribute routing
     //[Route("[controller]/[action]")]
+
     public class HomeController : Controller
     {
         private readonly IEmployeeRpository _employeeRpository;
@@ -34,6 +36,7 @@ namespace CoreDemo1.Controllers
         //[Route("[action]")]
         //[Route("~/Home")]
         // [Route("~/")] // for http://localhost:49827/
+        [AllowAnonymous]
         public ViewResult Index()
         {
             logger.LogTrace("Trace Log");
@@ -46,6 +49,7 @@ namespace CoreDemo1.Controllers
         //[Route("[action]/{id?}")]
         //also can write like below
         //[Route("{id?}")]
+        [AllowAnonymous]
         public ViewResult Details(int? id)
         {
             

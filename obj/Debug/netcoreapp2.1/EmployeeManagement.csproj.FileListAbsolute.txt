@@ -63,3 +63,4 @@ E:\VS2017 Demo\Core Demo\EmployeeManagement\EmployeeManagement\obj\Debug\netcore
 E:\VS2017 Demo\Core Demo\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
 E:\VS2017 Demo\Core Demo\EmployeeManagement\EmployeeManagement\bin\Debug\netcoreapp2.1\nlog.config
 E:\VS2017 Demo\Core Demo\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp2.1\Razor\Views\Account\Register.g.cshtml.cs
+E:\VS2017 Demo\Core Demo\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp2.1\Razor\Views\Account\Login.g.cshtml.cs

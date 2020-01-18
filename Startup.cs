@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreDemo1.Models;
 using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,16 +34,38 @@ namespace CoreDemo1
 
             #region adding identity service
 
-            services.AddIdentity<IdentityUser,IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
+
+            #endregion
+
+            #region overriding identity password properties
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 10;
+                options.Password.RequiredUniqueChars = 3;
+                options.Password.RequireNonAlphanumeric = false;
+            });
 
             #endregion
 
             #region AddMvc() Method
             //AddMvc method internally calls AddMvcCore services so no need to call AddMvcCore explicitly
             // to get json data in xml format we add 'AddXmlSerializerFormatters' method
-            services.AddMvc().AddXmlSerializerFormatters();
-            
+            //services.AddMvc().AddXmlSerializerFormatters();
+
+            #endregion
+            #region commenting 'services.AddMvc().AddXmlSerializerFormatters()' and adding below service including authorization for mvc at global level
+
+            services.AddMvc(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                        .RequireAuthenticatedUser()
+                                        .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            }).AddXmlSerializerFormatters();
+
             #endregion
             //adding dependency injection
             //services.AddTransient<IEmployeeRpository, MockEmployeeRepository>();//this is using MockEmployeeRepository with interface IEmployeeRpository
