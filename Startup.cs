@@ -34,7 +34,7 @@ namespace CoreDemo1
 
             #region adding identity service
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
             #endregion
